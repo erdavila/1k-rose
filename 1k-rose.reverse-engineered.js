@@ -1,5 +1,5 @@
-with(m = Math)
-	;
+var zBuffer = [];
+
 canvas.width = canvas.height = f = 500;
 h = -250;
 
@@ -61,8 +61,9 @@ setInterval(function () {
 			z = s[2];
 			x = ~~ (s[0] * f / z - h);
 			y = ~~ (s[1] * f / z - h);
-			if(!m[q = y * f + x] | m[q] > z) {
-				m[q] = z;
+			var zBufferIndex = y * f + x;
+			if((typeof zBuffer[zBufferIndex] === "undefined")  ||  (zBuffer[zBufferIndex] > z)) {
+				zBuffer[zBufferIndex] = z;
 				context.fillStyle = "rgb(" + ~ (s[3] * h) + "," + ~ (s[4] * h) + "," + ~ (s[3] * s[3] * -80) + ")";
 				context.fillRect(x, y, 1, 1);
 			}
