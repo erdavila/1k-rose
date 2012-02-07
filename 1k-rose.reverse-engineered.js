@@ -1,7 +1,7 @@
 var zBuffer = [];
 
-var f = 500;
-canvas.width = canvas.height = f;
+var SIZE = 500;
+canvas.width = canvas.height = SIZE;
 var h = -250;
 
 function surface(a, b, c) {
@@ -10,7 +10,7 @@ function surface(a, b, c) {
 		// There is only one value greater than 60, which is 60.8108108108
 		return {
 			x: Math.sin(a * 7) * (13 + 5 / (.2 + Math.pow(b * 4, 4))) - Math.sin(b) * 50,
-			y: b * f + 50,
+			y: b * SIZE + 50,
 			z: 625 + Math.cos(a * 7) * (13 + 5 / (.2 + Math.pow(b * 4, 4))) + b * 400,
 			3: a * 1 - b / 2,
 			4: a
@@ -86,9 +86,9 @@ setInterval(function () {
 		var point = surface(Math.random(), Math.random(), part);
 		if(point) {
 			var z = point.z;
-			var x = parseInt(point.x * f / z - h);
-			var y = parseInt(point.y * f / z - h);
-			var zBufferIndex = y * f + x;
+			var x = parseInt(point.x * SIZE / z - h);
+			var y = parseInt(point.y * SIZE / z - h);
+			var zBufferIndex = y * SIZE + x;
 			if((typeof zBuffer[zBufferIndex] === "undefined")  ||  (zBuffer[zBufferIndex] > z)) {
 				zBuffer[zBufferIndex] = z;
 				var r = -parseInt(point[3] * h);
