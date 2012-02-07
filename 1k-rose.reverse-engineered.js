@@ -61,14 +61,14 @@ setInterval(function () {
 		var point = surface(Math.random(), Math.random(), i % 46 / .74);
 		if(point) {
 			var z = point.z;
-			var x = ~~ (point.x * f / z - h);
-			var y = ~~ (point.y * f / z - h);
+			var x = parseInt(point.x * f / z - h);
+			var y = parseInt(point.y * f / z - h);
 			var zBufferIndex = y * f + x;
 			if((typeof zBuffer[zBufferIndex] === "undefined")  ||  (zBuffer[zBufferIndex] > z)) {
 				zBuffer[zBufferIndex] = z;
-				var r = ~ (point[3] * h);
-				var g = ~ (point[4] * h);
-				var b = ~ (point[3] * point[3] * -80);
+				var r = -parseInt(point[3] * h);
+				var g = -parseInt(point[4] * h);
+				var b = -parseInt(point[3] * point[3] * -80);
 				context.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
 				context.fillRect(x, y, 1, 1);
 			}
