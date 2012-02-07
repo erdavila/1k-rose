@@ -1,7 +1,8 @@
 var zBuffer = [];
 
-canvas.width = canvas.height = f = 500;
-h = -250;
+var f = 500;
+canvas.width = canvas.height = f;
+var h = -250;
 
 function p(a, b, c) {
 	if(c > 60) {
@@ -13,13 +14,14 @@ function p(a, b, c) {
 			a
 		];
 	}
-	A = a * 2 - 1;
-	B = b * 2 - 1;
+	var A = a * 2 - 1;
+	var B = b * 2 - 1;
 	if(A * A + B * B < 1) {
 		if(c > 37) {
-			n = (j = c & 1) ? 6 : 4;
-			o = .5 / (a + .01) + Math.cos(b * 125) * 3 - a * 300;
-			w = b * h;
+			var j = c & 1;
+			var n = j ? 6 : 4;
+			var o = .5 / (a + .01) + Math.cos(b * 125) * 3 - a * 300;
+			var w = b * h;
 			return [
 				o * Math.cos(n) + w * Math.sin(n) + j * 610 - 390,
 				o * Math.sin(n) - w * Math.cos(n) + 550 - j * 350,
@@ -31,9 +33,9 @@ function p(a, b, c) {
 		}
 		if(c > 32) {
 			c = c * 1.16 - .15;
-			o = a * 45 - 20;
-			w = b * b * h;
-			z = o * Math.sin(c) + w * Math.cos(c) + 620;
+			var o = a * 45 - 20;
+			var w = b * b * h;
+			var z = o * Math.sin(c) + w * Math.cos(c) + 620;
 			return [
 				o * Math.cos(c) - w * Math.sin(c),
 				28 + Math.cos(B * .5) * 99 - b * b * b * 60 - z / 2 - h,
@@ -42,9 +44,9 @@ function p(a, b, c) {
 				b * .7
 			];
 		}
-		o = A * (2 - b) * (80 - c * 2);
-		w = 99 - Math.cos(A) * 120 - Math.cos(b) * (-h - c * 4.9) + Math.cos(Math.pow(1 - b, 7)) * 50 + c * 2;
-		z = o * Math.sin(c) + w * Math.cos(c) + 700;
+		var o = A * (2 - b) * (80 - c * 2);
+		var w = 99 - Math.cos(A) * 120 - Math.cos(b) * (-h - c * 4.9) + Math.cos(Math.pow(1 - b, 7)) * 50 + c * 2;
+		var z = o * Math.sin(c) + w * Math.cos(c) + 700;
 		return [
 			o * Math.cos(c) - w * Math.sin(c),
 			B * 99 - Math.cos(Math.pow(b, 7)) * 50 - c / 3 - z / 1.35 + 450,
@@ -56,11 +58,12 @@ function p(a, b, c) {
 }
 
 setInterval(function () {
-	for(i = 0; i < 1e4; i++) {
-		if(s = p(Math.random(), Math.random(), i % 46 / .74)) {
-			z = s[2];
-			x = ~~ (s[0] * f / z - h);
-			y = ~~ (s[1] * f / z - h);
+	for(var i = 0; i < 1e4; i++) {
+		var s = p(Math.random(), Math.random(), i % 46 / .74);
+		if(s) {
+			var z = s[2];
+			var x = ~~ (s[0] * f / z - h);
+			var y = ~~ (s[1] * f / z - h);
 			var zBufferIndex = y * f + x;
 			if((typeof zBuffer[zBufferIndex] === "undefined")  ||  (zBuffer[zBufferIndex] > z)) {
 				zBuffer[zBufferIndex] = z;
