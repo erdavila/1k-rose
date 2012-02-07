@@ -1,0 +1,8 @@
+This is a reverse-engineering project for the amazing 1kb JavaScript code
+that draws a Rose.
+
+The code is competing in the JS1k contest:
+	http://js1k.com/2012-love/demo/1022
+
+The author Román Cortés explains the approach for the code in his blog:
+	http://www.romancortes.com/blog/1k-rose/
