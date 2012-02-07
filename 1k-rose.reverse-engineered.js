@@ -29,10 +29,13 @@ function surface(a, b, c) {
 			// The 2 LEAVES.
 			// There are 17 values for which 37 < c <= 60, but only 2 leaves are drawn.
 			// The value of c is not used to draw the leaves - only its parity is used.
-			// The left leaf (when c is even) is drawn 8 times! 
-			// The right leaf (when c is odd) is drawn 9 times! 
-			//if(c < 58) return;   // This code would avoid redrawing the leaves.
-			
+			/*
+			 * The left leaf (when c is even) is drawn 8 times, while the right
+			 * leaf (when c is odd) is drawn 9 times. This is due to the deformation
+			 * that makes the tips of the leaves to take more iterations to render.
+			 * So, with more rendering per iteration, the leaves will be filled
+			 * more or less at the same time as the rest of the rose.
+			 */
 			var j = c & 1;   // Is c odd or even?
 			var n = j ? 6 : 4;
 			var o = .5 / (a + .01) + Math.cos(b * 125) * 3 - a * 300;
@@ -78,12 +81,13 @@ function surface(a, b, c) {
 
 setInterval(function () {
 	for(var i = 0; i < 10000; i++) {
-		// Splits i in intervals [0, 45)
-		// and stretches each interval to [0, 62.1621621622).
+		// Splits i in intervals [0, 45) ...
+		var part = i % 46;
+		// .. and stretches each interval to [0, 62.1621621622).
+		var c = part / .74;
 		// See the table in the end of this file.
-		var part = i % 46 / .74;
 		
-		var point = surface(Math.random(), Math.random(), part);
+		var point = surface(Math.random(), Math.random(), c);
 		if(point) {
 			var z = point.z;
 			var x = parseInt(point.x * SIZE / z - h);
@@ -103,58 +107,60 @@ setInterval(function () {
 
 
 /*
-i	part
--------------------------------
-0	0				A petal
-1	1.3513513514	A petal
-2	2.7027027027	A petal
-3	4.0540540541	A petal
-4	5.4054054054	A petal
-5	6.7567567568	A petal
-6	8.1081081081	A petal
-7	9.4594594595	A petal
-8	10.8108108108	A petal
-9	12.1621621622	A petal
-10	13.5135135135	A petal
-11	14.8648648649	A petal
-12	16.2162162162	A petal
-13	17.5675675676	A petal
-14	18.9189189189	A petal
-15	20.2702702703	A petal
-16	21.6216216216	A petal
-17	22.972972973	A petal
-18	24.3243243243	A petal
-19	25.6756756757	A petal
-20	27.027027027	A petal
-21	28.3783783784	A petal
-22	29.7297297297	A petal
-23	31.0810810811	A petal
-24	32.4324324324	A sepal
-25	33.7837837838	A sepal
-26	35.1351351351	A sepal
-27	36.4864864865	A sepal
-28	37.8378378378	The right leaf (?)
-29	39.1891891892	The right leaf (?)
-30	40.5405405405	The left  leaf (?)
-31	41.8918918919	The right leaf (?)
-32	43.2432432432	The right leaf (?)
-33	44.5945945946	The left  leaf (?)
-34	45.9459459459	The right leaf (?)
-35	47.2972972973	The right leaf (?)
-36	48.6486486486	The left  leaf (?)
-37	50				The left  leaf (?)
-38	51.3513513514	The right leaf (?)
-39	52.7027027027	The left  leaf (?)
-40	54.0540540541	The left  leaf (?)
-41	55.4054054054	The right leaf (?)
-42	56.7567567568	The left  leaf (?)
-43	58.1081081081	The left  leaf (?)
-44	59.4594594595	The right leaf (?)
-45	60.8108108108	The rose stick
-46	0
-47	1.3513513514
-48	2.7027027027
-49	4.0540540541
-50	5.4054054054
-...	...				... 
+
+ i   part    c
+-------------------------------------------
+ 0     0     0              A petal
+ 1     1     1.351351351    A petal
+ 2     2     2.702702703    A petal
+ 3     3     4.054054054    A petal
+ 4     4     5.405405405    A petal
+ 5     5     6.756756757    A petal
+ 6     6     8.108108108    A petal
+ 7     7     9.459459459    A petal
+ 8     8    10.81081081     A petal
+ 9     9    12.16216216     A petal
+10    10    13.51351351     A petal
+11    11    14.86486486     A petal
+12    12    16.21621622     A petal
+13    13    17.56756757     A petal
+14    14    18.91891892     A petal
+15    15    20.27027027     A petal
+16    16    21.62162162     A petal
+17    17    22.97297297     A petal
+18    18    24.32432432     A petal
+19    19    25.67567568     A petal
+20    20    27.02702703     A petal
+21    21    28.37837838     A petal
+22    22    29.72972973     A petal
+23    23    31.08108108     A petal
+24    24    32.43243243     A sepal
+25    25    33.78378378     A sepal
+26    26    35.13513514     A sepal
+27    27    36.48648649     A sepal
+28    28    37.83783784     The right leaf
+29    29    39.18918919     The right leaf
+30    30    40.54054054     The left  leaf
+31    31    41.89189189     The right leaf
+32    32    43.24324324     The right leaf
+33    33    44.59459459     The left  leaf
+34    34    45.94594595     The right leaf
+35    35    47.2972973      The right leaf
+36    36    48.64864865     The left  leaf
+37    37    50              The left  leaf
+38    38    51.35135135     The right leaf
+39    39    52.7027027      The left  leaf
+40    40    54.05405405     The left  leaf
+41    41    55.40540541     The right leaf
+42    42    56.75675676     The left  leaf
+43    43    58.10810811     The left  leaf
+44    44    59.45945946     The right leaf
+45    45    60.81081081     The rose stick
+46     0     0    
+47     1     1.351351351    
+48     2     2.702702703    
+49     3     4.054054054    
+50     4     5.405405405    
+...   ...   ...     
+
 */
