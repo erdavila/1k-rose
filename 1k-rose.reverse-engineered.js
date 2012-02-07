@@ -7,7 +7,7 @@ var h = -250;
 function surface(a, b, c) {
 	if(c > 60) {
 		// The rose STICK.
-		// There is only one value greater than 60, which is 60.8108108108
+		// There is only one value greater than 60, which is 60.8108108108.
 		return {
 			x: Math.sin(a * 7) * (13 + 5 / (.2 + Math.pow(b * 4, 4))) - Math.sin(b) * 50,
 			y: b * SIZE + 50,

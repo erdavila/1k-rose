@@ -1,8 +1,33 @@
 This is a reverse-engineering project for the amazing 1kb JavaScript code
-that draws a Rose.
+that draws a Rose, written by Román Cortés.
+
+The original minified-obfuscated-hand-written(!) code is in the file 1k-rose.js.
+The file 1k-rose.reverse-engineered.js is the result of this project.
+
 
 The code is competing in the JS1k contest:
 	http://js1k.com/2012-love/demo/1022
 
-The author Román Cortés explains the approach for the code in his blog:
+The author explains the approach for the code in his blog:
 	http://www.romancortes.com/blog/1k-rose/
+
+
+
+
+Some ideas to play with the code
+--------------------------------
+* Get parts based on deformed squares instead of deformed circles by changing
+  the test if(A * A + B * B < 1) to if(true  ||  A * A + B * B < 1)
+* Draw the parts selectively by inserting conditions. For example, to draw only
+  the first 5 petals, use the condition:
+	if(c > 6  &&  c < 37) return;
+  See the table in the end of the reverse-engineered file.
+* Play with the colors by changing the fields "3" and "4" in the objects returned
+  by the surface function.
+
+
+
+TO DO
+-----
+* Understand the colors
+* Understand the variables n, o, w, h
