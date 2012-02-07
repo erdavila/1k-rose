@@ -4,7 +4,7 @@ var f = 500;
 canvas.width = canvas.height = f;
 var h = -250;
 
-function p(a, b, c) {
+function surface(a, b, c) {
 	if(c > 60) {
 		return [
 			Math.sin(a * 7) * (13 + 5 / (.2 + Math.pow(b * 4, 4))) - Math.sin(b) * 50,
@@ -59,15 +59,15 @@ function p(a, b, c) {
 
 setInterval(function () {
 	for(var i = 0; i < 1e4; i++) {
-		var s = p(Math.random(), Math.random(), i % 46 / .74);
-		if(s) {
-			var z = s[2];
-			var x = ~~ (s[0] * f / z - h);
-			var y = ~~ (s[1] * f / z - h);
+		var point = surface(Math.random(), Math.random(), i % 46 / .74);
+		if(point) {
+			var z = point[2];
+			var x = ~~ (point[0] * f / z - h);
+			var y = ~~ (point[1] * f / z - h);
 			var zBufferIndex = y * f + x;
 			if((typeof zBuffer[zBufferIndex] === "undefined")  ||  (zBuffer[zBufferIndex] > z)) {
 				zBuffer[zBufferIndex] = z;
-				context.fillStyle = "rgb(" + ~ (s[3] * h) + "," + ~ (s[4] * h) + "," + ~ (s[3] * s[3] * -80) + ")";
+				context.fillStyle = "rgb(" + ~ (point[3] * h) + "," + ~ (point[4] * h) + "," + ~ (point[3] * point[3] * -80) + ")";
 				context.fillRect(x, y, 1, 1);
 			}
 		}
