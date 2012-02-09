@@ -22,12 +22,11 @@ Some ideas to play with the code
   the first 5 petals, use the condition:
 	if(c > 6  &&  c < 37) return;
   See values for c in the table at the end of the reverse-engineered file.
-* Play with the colors by changing the fields "3" and "4" in the objects returned
+* Play with the colors by changing the fields "r" and "g" in the objects returned
   by the surface function.
 
 
 
 TO DO
 -----
-* Understand the colors
 * Understand the variables n, o, w, h
