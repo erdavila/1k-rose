@@ -2,6 +2,8 @@ var zBuffer = [];
 
 var SIZE = 500;
 canvas.width = canvas.height = SIZE;
+context.fillStyle = "yellow";
+context.fillRect(0, 0, SIZE, SIZE);
 var h = -250;
 
 function surface(a, b, c) {
@@ -80,6 +82,10 @@ function surface(a, b, c) {
 	}
 }
 
+
+var minZ = +9999;
+var maxZ = -9999;
+
 setInterval(function () {
 	for(var i = 0; i < 10000; i++) {
 		// Splits i in intervals [0, 45) ...
@@ -91,6 +97,9 @@ setInterval(function () {
 		var point = surface(Math.random(), Math.random(), c);
 		if(point) {
 			var z = point.z;
+			minZ = Math.min(minZ, z);
+			maxZ = Math.max(maxZ, z);
+			
 			var x = parseInt(point.x * SIZE / z - h);
 			var y = parseInt(point.y * SIZE / z - h);
 			var zBufferIndex = y * SIZE + x;
@@ -103,10 +112,9 @@ setInterval(function () {
 				to "tune" the colors of the petals, so the blue component can be
 				derived from the red component.
 				 */
-				var r = -parseInt(point.r * h);
-				var g = -parseInt(point.g * h);
-				var b = -parseInt(point.r * point.r * -80);
-				
+				var r = parseInt(255 * (1 - (z - minZ) / (maxZ - minZ)));
+				var g = r;
+				var b = r;
 				context.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
 				context.fillRect(x, y, 1, 1);
 			}
